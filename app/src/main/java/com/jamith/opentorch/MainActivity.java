@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private static final  int camera_request=50;
     private boolean hasACameraFlash;
     private boolean flashlightStatus=false;
-    private boolean isEnable;
+    private boolean isEnable ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
         imgBtnSwitch = findViewById(R.id.imgBtnSwitch);
 
         hasACameraFlash = getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-        isEnable = ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED;
+        boolean rst = ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED;
+        isEnable =rst;
 
         imgBtnSwitch.setEnabled(!isEnable);
         imageViewStatus.setEnabled(isEnable);
