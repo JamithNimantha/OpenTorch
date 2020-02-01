@@ -1,6 +1,5 @@
 package com.jamith.opentorch;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.camera2.CameraAccessException;
@@ -9,8 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -24,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private static final  int camera_request=50;
     private boolean hasACameraFlash;
     private boolean flashlightStatus=false;
-    private boolean isEnable ;
+    private boolean isEnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +31,13 @@ public class MainActivity extends AppCompatActivity {
         imgBtnSwitch = findViewById(R.id.imgBtnSwitch);
 
         hasACameraFlash = getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-        boolean rst = ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED;
-        isEnable =rst;
+//        isEnable = ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED;
 
-        imgBtnSwitch.setEnabled(!isEnable);
-        imageViewStatus.setEnabled(isEnable);
+//        imgBtnSwitch.setEnabled(!isEnable);
+//        imageViewStatus.setEnabled(isEnable);
     }
     public void imgBtnSwitchOnClicked(View view){
-        ActivityCompat.requestPermissions(MainActivity.this,new String[] {Manifest.permission.CAMERA},camera_request);
+//        ActivityCompat.requestPermissions(MainActivity.this,new String[] {Manifest.permission.CAMERA},camera_request);
         imgBtnSwitch.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -88,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
             case camera_request:
-            if (grantResults.length>0 && grantResults[0] ==PackageManager.PERMISSION_GRANTED){
-                imgBtnSwitch.setEnabled(false);
-                imageViewStatus.setEnabled(true);
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    imgBtnSwitch.setEnabled(!isEnable);
+                    imageViewStatus.setEnabled(isEnable);
 
             }else {
                 Toast.makeText(MainActivity.this,"Permission Denied",Toast.LENGTH_SHORT).show();
